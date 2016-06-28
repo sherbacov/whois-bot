@@ -1,11 +1,14 @@
 require 'sinatra'
+require 'slack-ruby-client'
+require 'net/dns'
+require 'whois'
 
 get '/' do 
 	"hello world!"
 	
 end
 
-post 'whois'  do
+post '/'  do
 	text = params.fetch('text').strip
 
 	case text
