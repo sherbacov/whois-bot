@@ -50,11 +50,6 @@ def whois_query(domain)
   puts domain_nameservers
 end
 
-whois_query(domain)
-
-
-
-
 
 # Now the fun starts. Once someone POSTs to this app, it will return information.
 post '/'  do
