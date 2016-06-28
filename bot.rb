@@ -57,6 +57,8 @@ end
 
 # Construct the message that gets sent back to Slack after the Whois query finishes
 # http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
+# https://coderwall.com/p/c-mu-a/http-posts-in-ruby
+
 def return_response(whois_response_json, response_url)
 
 	uri = URI.parse(response_url)
@@ -75,15 +77,16 @@ end
 def json_response_test(response_url)
 
 	uri = URI.parse(response_url)
-	
-	json_headers = { 'Content-Type' => 'application/json',
-					'Accept' => 'application/json' }
+	header = { 'Content-Type': 'text/json'}
+
+	params = {text: 'This is a test JSON response.'}
 
 	http = Net::HTTP.new(uri.host)
+	request = Net::HTTP::Post.new(uri.request_uri,header)
+	request.body = params.to_json
 
-	params = {'text' => 'This is a test JSON response.'}
 
-	response = http.post(uri.path,params,json_headers)
+	response = http.request(request)
 end
 
 
