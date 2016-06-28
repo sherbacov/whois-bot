@@ -13,3 +13,4 @@ post 'whois'  do
 	when 'test'
 		'MUAHAHAH THIS KINDA WORKS ALREADY'
 end
+end
