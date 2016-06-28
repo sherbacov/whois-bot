@@ -68,7 +68,7 @@ post '/'  do
 	# 	end
 
 	# else
-	'Let me check on that for you! Please hold.'
+	'Let me check on that for you! Please hold...checking WHOIS for '+domain
 
 		#whois_query(domain)
 
