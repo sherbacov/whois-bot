@@ -54,6 +54,9 @@ def whois_query(domain)
   puts "Expires on:" + domain_expiration_date.to_s
   puts "Contact info:" + domain_registrant_contacts.to_s
   puts domain_nameservers
+
+  @whois_data = domain_registrar
+
 end
 
 
@@ -76,9 +79,9 @@ def return_response(whois_response_json, response_url)
 
 end
 
-def json_response_test(response_url)
+def json_response_test(response_url, whois_data)
 
-		data_output = {text: "hello"}
+		data_output = {text: whois_data}
 		json_headers = {"Content-Type" => "application/json", "Accept" => "application/json"}
 		#data_output = data_output
 		
@@ -109,8 +112,8 @@ post '/'  do
 
 	# else
 	# 'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
-
-	json_response_test(response_url)
+	whois_query(domain)
+	json_response_test(response_url, @whois_data)
 
 		#whois_query(domain)
 
