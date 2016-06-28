@@ -80,10 +80,10 @@ def json_response_test(response_url)
 	uri = URI.parse(response_url)
 	header = { 'Content-Type': 'text/json'}
 
-	params = {'text': 'This is a test JSON response.'}
+	params = {"text" => "This is a test JSON response."}
 
 	http = Net::HTTP.new(uri.host)
-	request = Net::HTTP::Post.new(uri.request_uri,header)
+	request = Net::HTTP::Post.new(uri.path,header)
 	request.body = params.to_json
 
 
