@@ -11,6 +11,8 @@ require 'sinatra'
 require 'slack-ruby-client'
 require 'net/dns'
 require 'whois'
+require 'net/http'
+require 'json'
 
 
 # Just returns a nice message if someone visits the URL directly.
@@ -53,9 +55,44 @@ def whois_query(domain)
 end
 
 
+# Construct the message that gets sent back to Slack after the Whois query finishes
+# http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
+def return_response(whois_response_json, response_url)
+
+	uri = URI.parse(response_url)
+	
+	json_headers = { "Content-Type" => "application/json",
+					"Accept" => "application/json" }
+
+	http = Net::HTTP.new(uri.host)
+
+	params = whois_response_json
+
+	response = http.post(uri.path,params,json_headers)
+
+end
+
+def json_response_test(response_url)
+
+	uri = URI.parse(response_url)
+	
+	json_headers = { "Content-Type" => "application/json",
+					"Accept" => "application/json" }
+
+	http = Net::HTTP.new(uri.host)
+
+	params = {"text": "This is a test JSON response."}
+
+	response = http.post(uri.path,params,json_headers)
+end
+
+
+
 # Now the fun starts. Once someone POSTs to this app, it will return information.
 post '/'  do
 	domain = params.fetch('text').strip
+	user_name = params.fetch('user_name')
+	response_url = params.fetch('response_url')
 
 	# case domain
 
@@ -69,6 +106,7 @@ post '/'  do
 
 	# else
 	'Let me check on that for you! Please hold...checking WHOIS for '+domain
+	json_response_test(response_url)
 
 		#whois_query(domain)
 

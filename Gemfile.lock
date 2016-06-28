@@ -76,6 +76,7 @@ PLATFORMS
 
 DEPENDENCIES
   heroku
+  json
   net-dns
   rack
   sinatra
