@@ -13,6 +13,7 @@ require 'net/dns'
 require 'whois'
 require 'net/http'
 require 'json'
+require 'uri'
 
 
 # Just returns a nice message if someone visits the URL directly.
@@ -109,7 +110,8 @@ post '/'  do
 
 	# else
 	'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
-	# json_response_test(response_url)
+
+	json_response_test(response_url)
 
 		#whois_query(domain)
 
