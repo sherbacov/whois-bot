@@ -43,6 +43,8 @@ def whois_query(domain)
 
   # Let's output some of this stuff, to see if it's working.
 
+  # need to put all this in a JSON POST message...
+
   puts "You asked about" + domain_that_was_queried + "...here's what I know:"
   puts "Registered at:" + domain_registrar.name
   puts "Expires on:" + domain_expiration_date.to_s
@@ -66,8 +68,9 @@ post '/'  do
 	# 	end
 
 	# else
+	'Let me check on that for you! Please hold.'
 
-		whois_query(domain)
+		#whois_query(domain)
 
 
 end
