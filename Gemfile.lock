@@ -65,6 +65,10 @@ GEM
     tilt (2.0.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unirest (1.0.8)
+      addressable
+      json
+      rest-client
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -81,6 +85,7 @@ DEPENDENCIES
   rack
   sinatra
   slack-ruby-client
+  unirest
   whois
 
 BUNDLED WITH

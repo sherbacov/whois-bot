@@ -14,6 +14,7 @@ require 'whois'
 require 'net/http'
 require 'json'
 require 'uri'
+require 'unirest'
 
 
 # Just returns a nice message if someone visits the URL directly.
@@ -77,14 +78,12 @@ end
 
 def json_response_test(response_url)
 
-	uri = URI.parse(response_url)
-	header = { "Content-Type" => "application/json"}
+	response = Unirest.post response_url,
+				headers:{"Accept" => "application/json"},
+				parameters:{
+					:text => "Did I say something? What's up?"
+				}
 
-	params = {"text" => "This is a test JSON response."}
-
-	http = Net::HTTP.new(uri.host)
-
-	response = http.post(uri, params.to_json, header)
 end
 
 
@@ -106,7 +105,7 @@ post '/'  do
 	# 	end
 
 	# else
-	'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
+	# 'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
 
 	json_response_test(response_url)
 
