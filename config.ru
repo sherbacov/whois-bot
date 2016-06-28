@@ -1,2 +1,2 @@
-require './bot'
+require './bot.rb'
 run Sinatra::Application
