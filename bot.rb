@@ -60,17 +60,17 @@ whois_query(domain)
 post '/'  do
 	domain = params.fetch('text').strip
 
-	case domain
+	# case domain
 
-		when 'yo mama'
-			'MUAHAHAH THIS KINDA WORKS ALREADY'
-		end
+	# 	when 'yo mama'
+	# 		'MUAHAHAH THIS KINDA WORKS ALREADY'
+	# 	end
 
-		when ''
-			'You need to provide a domain name! For example: google.com'
-		end
+	# 	when ''
+	# 		'You need to provide a domain name! For example: google.com'
+	# 	end
 
-	else
+	# else
 
 		whois_query(domain)
 
