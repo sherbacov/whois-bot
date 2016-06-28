@@ -78,7 +78,7 @@ end
 def json_response_test(response_url)
 
 	uri = URI.parse(response_url)
-	header = { "Content-Type" => "text/json"}
+	header = { "Content-Type" => "application/json"}
 
 	params = {"text" => "This is a test JSON response."}
 
