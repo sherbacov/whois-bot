@@ -78,11 +78,14 @@ end
 
 def json_response_test(response_url)
 
-	response = Unirest.post response_url.to_s,
-				headers:{"Accept" => "application/json"},
-				parameters:{
-					:text => "Did I say something? What's up?"
-				}
+		data_output = {text: "hello"}
+		json_headers = {"Content-Type" => "application/json", "Accept" => "application/json"}
+		#data_output = data_output
+		
+		uri = URI.parse(response_url)
+		http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = true
+		res = http.post(uri.path, data_output.to_json, json_headers)
 
 end
 
