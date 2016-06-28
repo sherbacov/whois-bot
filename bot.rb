@@ -76,8 +76,8 @@ def json_response_test(response_url)
 
 	uri = URI.parse(response_url)
 	
-	json_headers = { "Content-Type" => "application/json",
-					"Accept" => "application/json" }
+	json_headers = { 'Content-Type' => 'application/json',
+					'Accept' => 'application/json' }
 
 	http = Net::HTTP.new(uri.host)
 
