@@ -78,7 +78,7 @@ end
 
 def json_response_test(response_url)
 
-	response = Unirest.post response_url,
+	response = Unirest.post response_url.to_s,
 				headers:{"Accept" => "application/json"},
 				parameters:{
 					:text => "Did I say something? What's up?"
