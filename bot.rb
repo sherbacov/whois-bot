@@ -55,7 +55,7 @@ def whois_query(domain)
   puts "Contact info:" + domain_registrant_contacts.to_s
   puts domain_nameservers
 
-  $whois_data = domain_registrar.to_s
+  $whois_data = "hello world"
 
 end
 
@@ -63,21 +63,6 @@ end
 # Construct the message that gets sent back to Slack after the Whois query finishes
 # http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
 # https://coderwall.com/p/c-mu-a/http-posts-in-ruby
-
-def return_response(whois_response_json, response_url)
-
-	uri = URI.parse(response_url)
-	
-	json_headers = { "Content-Type" => "application/json",
-					"Accept" => "application/json" }
-
-	http = Net::HTTP.new(uri.host)
-
-	params = whois_response_json
-
-	response = http.post(uri.path,params,json_headers)
-
-end
 
 def json_response_test(response_url, whois_data)
 
@@ -91,8 +76,6 @@ def json_response_test(response_url, whois_data)
 		res = http.post(uri.path, data_output.to_json, json_headers)
 
 end
-
-
 
 # Now the fun starts. Once someone POSTs to this app, it will return information.
 post '/'  do
