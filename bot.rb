@@ -84,11 +84,24 @@ def whois_query(domain)
   # puts "Contact info:" + domain_registrant_contacts.to_s
   # puts domain_nameservers
 
-  record = Whois.whois(domain)
+  record = Whois.whois(domain).parser
+
+ 		domain_name = record.domain
+ 		created_date = record.created_on.to_s
+ 		last_updated = record.updated_on.to_s
+ 		expiration_date = record.expires_on.to_s
+ 		registrar = record.registrar
+ 		registrant_contacts = record.registrant_contacts.to_s
+ 		nameservers = record.nameservers.to_s
 
 
 
-  @whois_response = record.to_s
+
+  @whois_response = domain_name + "\n" +
+  					created_date + "\n" +
+  					last_updated + "\n" +
+  					registrar + "\n" +
+  					nameservers + "\n" 
 
 end
 
