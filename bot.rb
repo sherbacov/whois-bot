@@ -95,17 +95,18 @@ def main
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
 
-  'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
+  #'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
   if domain =~ /^(.*?\..*?$)/
   	whois_query(domain)
   	dns_query(domain)
   	json_response_test(response_url, @whois_response, @dns_response)
+  	puts domain.to_s
   end
 
 end
 
 
 # Now the fun starts. Once someone POSTs to this app, it will return information.
-post '/whois' do
+post '/' do
   main
 end
