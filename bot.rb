@@ -97,11 +97,7 @@ def whois_query(domain)
 
 
 
-  @whois_response = domain_name + "\n" +
-  					created_date + "\n" +
-  					last_updated + "\n" +
-  					registrar + "\n" +
-  					nameservers + "\n" 
+  @whois_response = domain_name
 
 end
 
