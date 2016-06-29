@@ -88,8 +88,12 @@ def dns_query(domain)
 	answer.any? {|ans| p ans}
 
 	#@dns_response = answer.to_s
-	@dns_response = Content.new(:value => <<TEXT)
-		This is some text that I'm trying to output! Le'ts see if it works.
+	@dns_response = <<-TEXT
+
+	This is the DNS response. I'm not sure what to put here.
+	**This should be bold!**
+	answer.to_s
+
 	TEXT
 
 	
