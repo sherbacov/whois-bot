@@ -25,7 +25,7 @@ end
 
 # Define methods - Whois and DNS/Host..
 
-def whois_query(domain)
+def whois_query(domain, response_url)
   whois = Whois::Client.new
 
   # run a Whois query on the domain we're passing in. Returns an object, but can be called as a string
