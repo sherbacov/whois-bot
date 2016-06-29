@@ -27,9 +27,9 @@ end
 # http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
 # https://coderwall.com/p/c-mu-a/http-posts-in-ruby
 
-def json_response_test(response_url, response)
+def json_response_test(response_url, whois_response, dns_response)
 
-  data_output = {text: response}
+  data_output = {text: whois_response + " | " + dns_response}
   json_headers = {"Content-Type" => "application/json", "Accept" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
@@ -56,7 +56,7 @@ def whois_query(domain)
   domain_created_on_date = result.created_on #Time/Nil
   domain_updated_date = result.updated_on #Time/Nil
   domain_expiration_date = result.expires_on
-  domain_registrar = result.registrar
+  domain_registrar = result.registrar.name
   domain_nameservers = result.nameservers
   domain_registrant_contacts = result.registrant_contacts
 
@@ -97,8 +97,8 @@ def main
 
   'Let me check on that for you! Please hold...checking WHOIS for '+ domain
   whois_query(domain)
-  #dns_query(domain)
-  json_response_test(response_url, @whois_response)
+  dns_query(domain)
+  json_response_test(response_url, @whois_response, @dns_response)
 end
 
 
