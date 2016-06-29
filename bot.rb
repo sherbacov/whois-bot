@@ -76,10 +76,12 @@ end
 
 
 def dns_query(domain)
-	packet = Net::DNS::Resolver.start(domain)
+	a_records = Net::DNS::Resolver.start(domain, Net::DNS::A)
+	mx_records = Net::DNS::Resolver.start(domain, Net::DNS::MX)
 
-	header = packet.header
-	answer = packet.answer
+	header = a_records.header
+	answer = a_records.answer
+	mx_answer = mx_records.answer
 
 	puts "The packet is #{packet.data.size} bytes"
 	puts "It contains #{header.anCount} answer entries"
@@ -87,13 +89,7 @@ def dns_query(domain)
 	answer.any? {|ans| p ans}
 
 	#@dns_response = answer.to_s
-	@dns_response = answer.to_s + <<-TEXT
-
-	This is the DNS response. I'm not sure what to put here.
-	**This should be bold!**
-	answer.to_s
-
-	TEXT
+	@dns_response = answer.to_s "\n" + mx_answer.to_s
 end
 
 def main
@@ -123,6 +119,6 @@ end
 
 
 # Now the fun starts. Once someone POSTs to this app, it will return information.
-post '/' do
+post '/whois' do
   main
 end
