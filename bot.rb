@@ -95,8 +95,7 @@ def dns_query(domain)
 	answer.to_s
 
 	TEXT
-
-	
+	+ answer.to_s
 end
 
 def main
