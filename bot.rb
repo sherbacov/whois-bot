@@ -93,7 +93,7 @@ def whois_query(domain)
  		registrar = record.registrar
  		registrant_contacts = record.registrant_contacts.to_s
  		nameservers = record.nameservers.to_s
-
+puts "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
 
 
 
