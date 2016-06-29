@@ -94,6 +94,7 @@ def main
   domain = params.fetch('text').strip
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
+  ok = false
   ok = params.fetch('ok')
 
   unless ok
