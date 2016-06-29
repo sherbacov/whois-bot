@@ -92,13 +92,12 @@ def whois_query(domain)
  		expiration_date = record.expires_on.to_s
  		registrar = record.registrar.name
  		#registrant_contacts = record.registrant_contacts.to_s
- 		nameservers = record.nameservers.name
+ 		#nameservers = record.nameservers.name
 puts "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
 
 
 
-  @whois_response = "*Domain Name:* " + domain_name.to_s + "\n First Registered On: " + created_date.to_s + "\n Last Updated On: " + last_updated.to_s + "\n Expires On: " + expiration_date.to_s + "\n *Registrar:* " + registrar.to_s + "\n *Nameservers:* " + nameservers.to_s
-
+  @whois_response = "*Domain Name:* " + domain_name.to_s + "\n First Registered On: " + created_date.to_s + "\n Last Updated On: " + last_updated.to_s + "\n Expires On: " + expiration_date.to_s + "\n *Registrar:* " + registrar.to_s 
 end
 
 
