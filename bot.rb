@@ -96,13 +96,9 @@ def main
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
  
-  begin
-  	ok = params.fetch('ok')
-  rescue 
-  	 ok = false
-  end
 
-  unless ok
+
+
   	#'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
   	if domain =~ /^(.*?\..*?$)/
   		whois_query(domain)
@@ -115,7 +111,7 @@ def main
   	else
   		"put a real domain name in, fool"
   	end
-  end
+
 
 end
 
