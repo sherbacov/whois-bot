@@ -87,7 +87,7 @@ def whois_query(domain)
   record = Whois.whois(domain).parser
 
  		domain_name = record.domain
- 		created_date = record.created_on.to_s
+ 		created_date = record.created_on
  		last_updated = record.updated_on.to_s
  		expiration_date = record.expires_on.to_s
  		registrar = record.registrar
@@ -97,7 +97,7 @@ def whois_query(domain)
 
 
 
-  @whois_response = "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date 
+  @whois_response = "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
 
 end
 
