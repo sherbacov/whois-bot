@@ -97,7 +97,7 @@ def whois_query(domain)
 
 
 
-  @whois_response = domain_name.to_s
+  @whois_response = "**Domain Name:** " + domain_name.to_s + "\n Created Date: " + created_date 
 
 end
 
