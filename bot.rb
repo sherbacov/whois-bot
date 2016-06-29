@@ -26,9 +26,21 @@ end
 # http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
 # https://coderwall.com/p/c-mu-a/http-posts-in-ruby
 
-def json_response_test(response_url, whois_response, dns_response)
+def json_response_test(response_url, whois_response)
 
-  data_output = {text: whois_response + " | " + dns_response}
+  data_output = {text: whois_response}
+  json_headers = {"Content-type" => "application/json"}
+  uri = URI.parse(response_url)
+  http = Net::HTTP.new(uri.host, uri.port)
+  http.use_ssl = true
+  res = http.post(uri.path, data_output.to_json, json_headers)
+  return nil
+
+end
+
+def json_prelim_response(response_url)
+
+  data_output = {text: "let me check on that for you! Please hold..."}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
@@ -94,7 +106,7 @@ def dns_query(domain)
 	@dns_response = result.to_s
 end
 
-def main
+def whois
   domain = params.fetch('text').strip
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
@@ -102,15 +114,12 @@ def main
 
 
 
-  	'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
+  	json_prelim_response(response_url)
   	
   	if domain =~ /^(.*?\..*?$)/
   		whois_query(domain)
-  		dns_query(domain)
-  		json_response_test(response_url, @whois_response, @dns_response)
-  		
-  		# Doesn't work without this line! what the heck..
-  		# puts domain.to_s
+  		#dns_query(domain)
+  		json_response_test(response_url, @whois_response)
 
   	else
   		"put a real domain name in, fool"
@@ -122,7 +131,11 @@ end
 
 # Now the fun starts. Once someone POSTs to this app, it will return information.
 post '/' do
-  main
+  whois
+end
+
+post '/host/?' do
+	dns
 end
 
 post '/test' do
