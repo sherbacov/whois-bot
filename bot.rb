@@ -98,7 +98,7 @@ post '/'  do
 	# 	end
 
 	# else
-	# 'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
+	'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
 	whois_query(domain, response_url)
 	
 
