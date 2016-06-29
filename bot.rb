@@ -55,7 +55,9 @@ def whois_query(domain)
   puts "Contact info:" + domain_registrant_contacts.to_s
   puts domain_nameservers
 
-  $whois_data = "hello world"
+  json_response_test(response_url, result)
+
+
 
 end
 
@@ -64,9 +66,9 @@ end
 # http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
 # https://coderwall.com/p/c-mu-a/http-posts-in-ruby
 
-def json_response_test(response_url, whois_data)
+def json_response_test(response_url, result)
 
-		data_output = {text: whois_data}
+		data_output = {text: result}
 		json_headers = {"Content-Type" => "application/json", "Accept" => "application/json"}
 		#data_output = data_output
 		
@@ -95,8 +97,8 @@ post '/'  do
 
 	# else
 	# 'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
-	whois_query(domain)
-	json_response_test(response_url, $whois_data)
+	whois_query(domain, response_url)
+	
 
 		#whois_query(domain)
 
