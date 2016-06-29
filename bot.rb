@@ -28,7 +28,7 @@ end
 
 def json_response_test(response_url, whois_response)
 
-  data_output = {text: whois_response}
+  data_output = {text: whois_response, response_type: "in_channel"}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
