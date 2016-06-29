@@ -40,7 +40,7 @@ end
 
 def json_prelim_response(response_url, user_name)
 
-  data_output = {text: "Hi " + user_name + ", let me check on that for you! Please hold..."}
+  data_output = {text: "Hi " + user_name + ", let me check on that for you! Please hold...", response_type: "in_channel"}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
