@@ -96,12 +96,12 @@ def main
   response_url = params.fetch('response_url')
 
   'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
-  if domain
+  if domain =~ /^(.*?\..*?$)/
   	whois_query(domain)
   	dns_query(domain)
   	json_response_test(response_url, @whois_response, @dns_response)
   end
-  
+
 end
 
 
