@@ -94,8 +94,12 @@ def main
   domain = params.fetch('text').strip
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
-  ok = false
-  ok = params.fetch('ok')
+ 
+  begin
+  	ok = params.fetch('ok')
+  rescue 
+  	 ok = false
+  end
 
   unless ok
   	#'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
