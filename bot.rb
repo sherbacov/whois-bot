@@ -119,6 +119,6 @@ end
 
 
 # Now the fun starts. Once someone POSTs to this app, it will return information.
-post '/who/?' do
+post '/' do
   main
 end
