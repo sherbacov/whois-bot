@@ -100,7 +100,9 @@ def main
   	whois_query(domain)
   	dns_query(domain)
   	json_response_test(response_url, @whois_response, @dns_response)
-  	#puts domain.to_s
+  	
+  	# Doesn't work without this line! what the heck..
+  	puts domain.to_s
 
   else
   	"put a real domain name in, fool"
