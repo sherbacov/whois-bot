@@ -101,7 +101,11 @@ def main
   	dns_query(domain)
   	json_response_test(response_url, @whois_response, @dns_response)
   	puts domain.to_s
+
+  else
+  	"put a real domain name in, fool"
   end
+
 
 end
 
