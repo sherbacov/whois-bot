@@ -35,6 +35,7 @@ def json_response_test(response_url, whois_response, dns_response)
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   res = http.post(uri.path, data_output.to_json, json_headers)
+  return nil
 
 end
 
@@ -104,7 +105,7 @@ def main
   unless ok
   	#'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
   	if domain =~ /^(.*?\..*?$)/
-  		# whois_query(domain)
+  		whois_query(domain)
   		dns_query(domain)
   		json_response_test(response_url, @whois_response, @dns_response)
   		
