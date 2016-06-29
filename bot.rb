@@ -55,7 +55,7 @@ def whois_query(domain)
   puts "Contact info:" + domain_registrant_contacts.to_s
   puts domain_nameservers
 
-  @whois_data = domain_registrar
+  $whois_data = domain_registrar.to_s
 
 end
 
@@ -113,7 +113,7 @@ post '/'  do
 	# else
 	# 'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
 	whois_query(domain)
-	json_response_test(response_url, @whois_data)
+	json_response_test(response_url, $whois_data)
 
 		#whois_query(domain)
 
