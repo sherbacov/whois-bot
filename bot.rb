@@ -90,9 +90,9 @@ def whois_query(domain)
  		created_date = record.created_on
  		last_updated = record.updated_on.to_s
  		expiration_date = record.expires_on.to_s
- 		registrar = record.registrar
+ 		registrar = record.registrar.name
  		#registrant_contacts = record.registrant_contacts.to_s
- 		nameservers = record.nameservers.to_s
+ 		nameservers = record.nameservers.name
 puts "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
 
 
