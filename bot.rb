@@ -32,7 +32,7 @@ def json_response_test(response_url, whois_response, dns_response)
   data_output = {text: whois_response + " | " + dns_response}
   json_headers = {"Content-Type" => "application/json", "Accept" => "application/json"}
   uri = URI.parse(response_url)
-  http = Net::HTTP.new(uri.host, uri.port)
+  http = Net::HTTP.new(uri.host, uri.port, initheader=nil)
   http.use_ssl = true
   res = http.post(uri.path, data_output.to_json, json_headers)
 
