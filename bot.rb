@@ -96,9 +96,9 @@ def main
   response_url = params.fetch('response_url')
 
   'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
-  #whois_query(domain)
-  #dns_query(domain)
-  #json_response_test(response_url, @whois_response, @dns_response)
+  whois_query(domain)
+  dns_query(domain)
+  json_response_test(response_url, @whois_response, @dns_response)
 end
 
 
@@ -106,10 +106,3 @@ end
 post '/' do
   main
 end
-
-
-
-curl -X POST \
--H 'Content-type: application/json' \
---data '{"text": "This is posted to a test", icon_emoji": ":monkey_face:"}' \
-https://hooks.slack.com/commands/T1K9ZU50S/55468534276/p9dOgkbxLeOfVC2QMSdwJMZE
