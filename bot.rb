@@ -70,7 +70,7 @@ def whois_query(domain)
   # puts "Contact info:" + domain_registrant_contacts.to_s
   # puts domain_nameservers
 
-  @whois_response = domain_registrar.to_s
+  @whois_response = result.to_s
 
 end
 
