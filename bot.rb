@@ -66,13 +66,13 @@ def whois_query(domain, response_url)
 
   # # need to put all this in a JSON POST message...
 
-  # puts "You asked about" + domain_that_was_queried + "...here's what I know:"
-  # puts "Registered at:" + domain_registrar.name
+   puts "You asked about" + domain_that_was_queried + "...here's what I know: "
+   puts "Registered at:" + domain_registrar.name
   # puts "Expires on:" + domain_expiration_date.to_s
   # puts "Contact info:" + domain_registrant_contacts.to_s
   # puts domain_nameservers
 
-  json_response_test(response_url, result)
+  json_response_test(response_url, result.registrar)
 
 end
 
