@@ -91,7 +91,7 @@ def dns_query(domain)
 
 	# #@dns_response = answer.to_s
 	# @dns_response = answer.to_s "\n" + mx_answer.to_s
-	@dns_response = result
+	@dns_response = result.to_s
 end
 
 def main
