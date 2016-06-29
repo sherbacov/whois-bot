@@ -14,7 +14,6 @@ require 'whois'
 require 'net/http'
 require 'json'
 require 'uri'
-require 'unirest'
 
 
 # Just returns a nice message if someone visits the URL directly.
