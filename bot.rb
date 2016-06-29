@@ -23,45 +23,6 @@ get '/' do
 end
 
 
-# Define methods - Whois and DNS/Host..
-
-def whois_query(domain, response_url)
-  whois = Whois::Client.new
-
-  # run a Whois query on the domain we're passing in. Returns an object, but can be called as a string
-  # if necessary (i.e. puts result)
-  result = whois.lookup(domain)
-
-  # Return the whole record?
-  # puts result
-
-  # Return only some specific info...
-
-  domain_that_was_queried    = result.domain
-  domain_created_on_date     = result.created_on #Time/Nil
-  domain_updated_date        = result.updated_on #Time/Nil
-  domain_expiration_date     = result.expires_on
-  domain_registrar           = result.registrar
-  domain_nameservers         = result.nameservers
-  domain_registrant_contacts = result.registrant_contacts
-
-  # Let's output some of this stuff, to see if it's working.
-
-  # need to put all this in a JSON POST message...
-
-  puts "You asked about" + domain_that_was_queried + "...here's what I know:"
-  puts "Registered at:" + domain_registrar.name
-  puts "Expires on:" + domain_expiration_date.to_s
-  puts "Contact info:" + domain_registrant_contacts.to_s
-  puts domain_nameservers
-
-  json_response_test(response_url, result)
-
-
-
-end
-
-
 # Construct the message that gets sent back to Slack after the Whois query finishes
 # http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
 # https://coderwall.com/p/c-mu-a/http-posts-in-ruby
@@ -78,6 +39,45 @@ def json_response_test(response_url, result)
 		res = http.post(uri.path, data_output.to_json, json_headers)
 
 end
+
+# Define methods - Whois and DNS/Host..
+
+def whois_query(domain, response_url)
+  whois = Whois::Client.new
+
+  # run a Whois query on the domain we're passing in. Returns an object, but can be called as a string
+  # if necessary (i.e. puts result)
+  result = whois.lookup(domain)
+
+  # Return the whole record?
+  # puts result
+
+  # Return only some specific info...
+
+  # domain_that_was_queried    = result.domain
+  # domain_created_on_date     = result.created_on #Time/Nil
+  # domain_updated_date        = result.updated_on #Time/Nil
+  # domain_expiration_date     = result.expires_on
+  # domain_registrar           = result.registrar
+  # domain_nameservers         = result.nameservers
+  # domain_registrant_contacts = result.registrant_contacts
+
+  # # Let's output some of this stuff, to see if it's working.
+
+  # # need to put all this in a JSON POST message...
+
+  # puts "You asked about" + domain_that_was_queried + "...here's what I know:"
+  # puts "Registered at:" + domain_registrar.name
+  # puts "Expires on:" + domain_expiration_date.to_s
+  # puts "Contact info:" + domain_registrant_contacts.to_s
+  # puts domain_nameservers
+
+  json_response_test(response_url, result)
+
+end
+
+
+
 
 # Now the fun starts. Once someone POSTs to this app, it will return information.
 post '/'  do
