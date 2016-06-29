@@ -88,14 +88,13 @@ def dns_query(domain)
 	answer.any? {|ans| p ans}
 
 	#@dns_response = answer.to_s
-	@dns_response = <<-TEXT
+	@dns_response = answer.to_s + <<-TEXT
 
 	This is the DNS response. I'm not sure what to put here.
 	**This should be bold!**
 	answer.to_s
 
 	TEXT
-	+ answer.to_s
 end
 
 def main
