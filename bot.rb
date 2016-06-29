@@ -76,20 +76,22 @@ end
 
 
 def dns_query(domain)
-	a_records = Net::DNS::Resolver.start(domain, Net::DNS::A)
-	mx_records = Net::DNS::Resolver.start(domain, Net::DNS::MX)
+	result = Resolver(domain)
+	# a_records = Net::DNS::Resolver.start(domain, Net::DNS::A)
+	# mx_records = Net::DNS::Resolver.start(domain, Net::DNS::MX)
 
-	header = a_records.header
-	answer = a_records.answer
-	mx_answer = mx_records.answer
+	# header = a_records.header
+	# answer = a_records.answer
+	# mx_answer = mx_records.answer
 
-	#puts "The packet is #{packet.data.size} bytes"
-	#puts "It contains #{header.anCount} answer entries"
+	# #puts "The packet is #{packet.data.size} bytes"
+	# #puts "It contains #{header.anCount} answer entries"
 
-	answer.any? {|ans| p ans}
+	# answer.any? {|ans| p ans}
 
-	#@dns_response = answer.to_s
-	@dns_response = answer.to_s "\n" + mx_answer.to_s
+	# #@dns_response = answer.to_s
+	# @dns_response = answer.to_s "\n" + mx_answer.to_s
+	@dns_response = result
 end
 
 def main
