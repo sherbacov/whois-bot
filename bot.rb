@@ -122,3 +122,7 @@ end
 post '/' do
   main
 end
+
+post '/test' do
+	'Hello can you hear me'
+end
