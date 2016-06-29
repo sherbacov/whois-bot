@@ -38,9 +38,9 @@ def json_response_test(response_url, whois_response)
 
 end
 
-def json_prelim_response(response_url)
+def json_prelim_response(response_url, user_name)
 
-  data_output = {text: "let me check on that for you! Please hold..."}
+  data_output = {text: "Hi " + user_name + ", let me check on that for you! Please hold..."}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
@@ -58,7 +58,7 @@ def whois_query(domain)
   # run a Whois query on the domain we're passing in. Returns an object, but can be called as a string
   # if necessary (i.e. puts result)
   result = whois.lookup(domain)
-
+  puts result
   # Return the whole record?
   # puts result
 
@@ -114,7 +114,7 @@ def whois
 
 
 
-  	json_prelim_response(response_url)
+  	json_prelim_response(response_url, user_name)
   	
   	if domain =~ /^(.*?\..*?$)/
   		whois_query(domain)
