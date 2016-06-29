@@ -30,7 +30,7 @@ end
 def json_response_test(response_url, whois_response, dns_response)
 
   data_output = {text: whois_response + " | " + dns_response}
-  json_headers = {"Content-type" => "application/json", "Accept" => "application/json"}
+  json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
@@ -106,3 +106,10 @@ end
 post '/' do
   main
 end
+
+
+
+curl -X POST \
+-H 'Content-type: application/json' \
+--data '{"text": "This is posted to a test", icon_emoji": ":monkey_face:"}' \
+https://hooks.slack.com/commands/T1K9ZU50S/55468534276/p9dOgkbxLeOfVC2QMSdwJMZE
