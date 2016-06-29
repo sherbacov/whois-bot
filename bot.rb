@@ -83,8 +83,8 @@ def dns_query(domain)
 	answer = a_records.answer
 	mx_answer = mx_records.answer
 
-	puts "The packet is #{packet.data.size} bytes"
-	puts "It contains #{header.anCount} answer entries"
+	#puts "The packet is #{packet.data.size} bytes"
+	#puts "It contains #{header.anCount} answer entries"
 
 	answer.any? {|ans| p ans}
 
