@@ -97,7 +97,7 @@ def whois_query(domain)
 
 
 
-  @whois_response = domain_name
+  @whois_response = domain_name.to_s
 
 end
 
