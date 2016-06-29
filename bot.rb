@@ -97,7 +97,7 @@ puts "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date
 
 
 
-  @whois_response = "*Domain Name:* " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
+  @whois_response = "*Domain Name:* " + domain_name.to_s + "\n First Registered On: " + created_date.to_s + "\n Last Updated On: " + last_updated.to_s + "\n Expires On: " + expiration_date.to_s + "\n *Registrar:* " + registrar.to_s + "\n *Nameservers:* " + nameservers.to_s
 
 end
 
