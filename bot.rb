@@ -99,7 +99,8 @@ def main
 
 
 
-  	#'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
+  	'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
+  	
   	if domain =~ /^(.*?\..*?$)/
   		whois_query(domain)
   		dns_query(domain)
