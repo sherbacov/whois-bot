@@ -94,20 +94,22 @@ def main
   domain = params.fetch('text').strip
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
+  ok = params.fetch('ok')
 
-  #'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
-  if domain =~ /^(.*?\..*?$)/
-  	whois_query(domain)
-  	dns_query(domain)
-  	json_response_test(response_url, @whois_response, @dns_response)
-  	
-  	# Doesn't work without this line! what the heck..
-  	puts domain.to_s
+  unless ok
+  	#'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
+  	if domain =~ /^(.*?\..*?$)/
+  		whois_query(domain)
+  		dns_query(domain)
+  		json_response_test(response_url, @whois_response, @dns_response)
+  		
+  		# Doesn't work without this line! what the heck..
+  		# puts domain.to_s
 
-  else
-  	"put a real domain name in, fool"
+  	else
+  		"put a real domain name in, fool"
+  	end
   end
-
 
 end
 
