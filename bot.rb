@@ -53,24 +53,26 @@ end
 # Define methods - Whois and DNS/Host..
 
 def whois_query(domain)
-  whois = Whois::Client.new
+  #whois = Whois::Client.new
 
   # run a Whois query on the domain we're passing in. Returns an object, but can be called as a string
   # if necessary (i.e. puts result)
-  result = whois.lookup(domain)
-  puts result
+  
+  # result = whois.lookup(domain)
+  # puts result
+  
   # Return the whole record?
   # puts result
 
   # Return only some specific info...
 
-  domain_that_was_queried = result.domain
-  domain_created_on_date = result.created_on #Time/Nil
-  domain_updated_date = result.updated_on #Time/Nil
-  domain_expiration_date = result.expires_on
-  domain_registrar = result.registrar.name
-  domain_nameservers = result.nameservers
-  domain_registrant_contacts = result.registrant_contacts
+  # domain_that_was_queried = result.domain
+  # domain_created_on_date = result.created_on #Time/Nil
+  # domain_updated_date = result.updated_on #Time/Nil
+  # domain_expiration_date = result.expires_on
+  # domain_registrar = result.registrar.name
+  # domain_nameservers = result.nameservers
+  # domain_registrant_contacts = result.registrant_contacts
 
   # # Let's output some of this stuff, to see if it's working.
 
@@ -82,7 +84,11 @@ def whois_query(domain)
   # puts "Contact info:" + domain_registrant_contacts.to_s
   # puts domain_nameservers
 
-  @whois_response = result.to_s
+  record = Whois.whois(domain)
+
+
+
+  @whois_response = record.to_s
 
 end
 
