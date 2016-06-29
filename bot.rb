@@ -28,7 +28,7 @@ end
 
 def json_response_test(response_url, whois_response)
 
-  data_output = {text: whois_response, response_type: "in_channel"}
+  data_output = {text: whois_response, response_type: "ephemeral"}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
@@ -40,7 +40,7 @@ end
 
 def json_prelim_response(response_url, user_name)
 
-  data_output = {text: "Hi " + user_name + ", let me check on that for you! Please hold...", response_type: "in_channel"}
+  data_output = {text: "Hi " + user_name + ", let me check on that for you! Please hold...", response_type: "ephemeral"}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
