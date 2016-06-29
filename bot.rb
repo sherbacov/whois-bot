@@ -30,11 +30,11 @@ end
 def json_response_test(response_url, whois_response, dns_response)
 
   data_output = {text: whois_response + " | " + dns_response}
-  #json_headers = {"Content-type" => "application/json", "Accept" => "application/json"}
+  json_headers = {"Content-type" => "application/json", "Accept" => "application/json"}
   uri = URI.parse(response_url)
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
-  res = http.post(uri.path, data_output.to_json)
+  res = http.post(uri.path, data_output.to_json, json_headers)
 
 end
 
@@ -95,10 +95,10 @@ def main
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
 
-  'Let me check on that for you! Please hold...checking WHOIS for '+ domain
-  whois_query(domain)
-  dns_query(domain)
-  json_response_test(response_url, @whois_response, @dns_response)
+  'Let me check on that for you! Please hold...checking WHOIS for '+ domain + " " + response_url
+  #whois_query(domain)
+  #dns_query(domain)
+  #json_response_test(response_url, @whois_response, @dns_response)
 end
 
 
