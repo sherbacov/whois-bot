@@ -72,7 +72,7 @@ def whois_query(domain, response_url)
   # puts "Contact info:" + domain_registrant_contacts.to_s
   # puts domain_nameservers
 
-  response = domain_registrar
+  response = "name.com yo"
 
   json_response_test(response_url, response)
 
@@ -99,7 +99,7 @@ post '/'  do
 
 	# else
 	'Let me check on that for you! Please hold...checking WHOIS for '+ domain + response_url
-	#whois_query(domain, response_url)
+	whois_query(domain, response_url)
 	
 
 		#whois_query(domain)
