@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 3000:3000
 
-CMD ["bundle", "exec", "ruby", "bot.rb", "-p", "3000"]  
+CMD ["bundle", "exec", "ruby", "bot.rb", "-p", "3000", "-e", "production"]  

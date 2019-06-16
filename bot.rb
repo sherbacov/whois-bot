@@ -87,7 +87,13 @@ def whois_query(domain)
    
   days_expire = (((record.expires_on - DateTime.now) / 86400).round - 1).to_s
 
- 	registrar = record.registrar.id
+  if !record.registrar.nil? then
+    registrar =  record.registrar.id
+  else 
+    registrar = ""
+  end
+  
+ 	
  	#registrant_contacts = record.registrant_contacts
    #nameservers = record.nameservers.name
   nameservers = ""
@@ -97,7 +103,7 @@ def whois_query(domain)
    
   puts "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
 
-  @whois_response =  "*Domain Name:* " + domain_name.to_s + "\n Registered On: " + created_date.to_s + "\n Expires On: " + expiration_date.to_s + " (" + days_expire +" days)" + "\n *Registrar:* " + registrar.to_s  + nameservers.to_s
+  @whois_response =  "*Domain Name:* `" + domain_name.to_s + "`\n Registered On: " + created_date.to_s + "\n Expires On: " + expiration_date.to_s + " (" + days_expire +" days)" + "\n *Registrar:* " + registrar.to_s  + nameservers.to_s
 
 end
 
@@ -132,20 +138,21 @@ def whois
   domain = params.fetch('text').strip
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
+
+  print "Domain request - " + domain
  
-  	#json_prelim_response(response_url, user_name)
+  #json_prelim_response(response_url, user_name)
   	
-  	if domain =~ /^(.*?\..*?$)/
-  		whois_query(domain)
-  		dns_query(domain)
-      
-      #json_response(response_url, @whois_response)
+  if domain =~ /^(.*?\..*?$)/
+  	whois_query(domain)
+  	dns_query(domain)
+
     print @whois_response + @dns_response
+    json_response(response_url, @whois_response + @dns_response)
 
-  	else
-  		"put a real domain name in, fool"
-  	end
-
+ 	else
+ 		"put a real domain name in, fool"
+ 	end
 end
 
 
