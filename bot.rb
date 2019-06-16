@@ -6,28 +6,25 @@
 #
 #
 
-
 require 'sinatra'
 require 'slack-ruby-client'
 require 'net/dns'
 require 'whois'
+require 'whois-parser'
 require 'net/http'
 require 'json'
 require 'uri'
 
-
 # Just returns a nice message if someone visits the URL directly.
 get '/' do 
-	"hello world!"
+	"service is ok."
 end
-
 
 # Construct the message that gets sent back to Slack after the Whois query finishes
 # http://mikeebert.tumblr.com/post/56891815151/posting-json-with-nethttp
 # https://coderwall.com/p/c-mu-a/http-posts-in-ruby
 
-def json_response_test(response_url, whois_response)
-
+def json_response(response_url, whois_response)
   data_output = {text: whois_response, response_type: "ephemeral"}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
@@ -35,11 +32,9 @@ def json_response_test(response_url, whois_response)
   http.use_ssl = true
   res = http.post(uri.path, data_output.to_json, json_headers)
   return nil
-
 end
 
 def json_prelim_response(response_url, user_name)
-
   data_output = {text: "Hi " + user_name + ", let me check on that for you! Please hold...", response_type: "ephemeral"}
   json_headers = {"Content-type" => "application/json"}
   uri = URI.parse(response_url)
@@ -47,7 +42,6 @@ def json_prelim_response(response_url, user_name)
   http.use_ssl = true
   res = http.post(uri.path, data_output.to_json, json_headers)
   return nil
-
 end
 
 # Define methods - Whois and DNS/Host..
@@ -79,25 +73,32 @@ def whois_query(domain)
   # # need to put all this in a JSON POST message...
 
   #puts "You asked about" + domain_that_was_queried.to_s + "...here's what I know: "
- # puts "Registered at:" + domain_registrar.to_s
+  # puts "Registered at:" + domain_registrar.to_s
   # puts "Expires on:" + domain_expiration_date.to_s
   # puts "Contact info:" + domain_registrant_contacts.to_s
   # puts domain_nameservers
 
   record = Whois.whois(domain).parser
 
- 		domain_name = record.domain
- 		created_date = record.created_on
- 		last_updated = record.updated_on.to_s
- 		expiration_date = record.expires_on.to_s
- 		registrar = record.registrar.name
- 		#registrant_contacts = record.registrant_contacts.to_s
- 		#nameservers = record.nameservers.name
-puts "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
+  domain_name = record.domain
+ 	created_date = record.created_on
+ 	last_updated = created_date
+  expiration_date = record.expires_on
+   
+  days_expire = (((record.expires_on - DateTime.now) / 86400).round - 1).to_s
 
+ 	registrar = record.registrar.id
+ 	#registrant_contacts = record.registrant_contacts
+   #nameservers = record.nameservers.name
+  nameservers = ""
+  record.nameservers.each do |nameserver|
+    nameservers = nameservers + "\n Name Server: " + nameserver.to_s 
+  end
+   
+  puts "__Domain Name:__ " + domain_name.to_s + "\n Created Date: " + created_date.to_s 
 
+  @whois_response =  "*Domain Name:* " + domain_name.to_s + "\n Registered On: " + created_date.to_s + "\n Expires On: " + expiration_date.to_s + " (" + days_expire +" days)" + "\n *Registrar:* " + registrar.to_s  + nameservers.to_s
 
-  @whois_response = "*Domain Name:* " + domain_name.to_s + "\n First Registered On: " + created_date.to_s + "\n Last Updated On: " + last_updated.to_s + "\n Expires On: " + expiration_date.to_s + "\n *Registrar:* " + registrar.to_s 
 end
 
 
@@ -107,7 +108,7 @@ def dns_query(domain)
 	# mx_records = Net::DNS::Resolver.start(domain, Net::DNS::MX)
 
 	# header = a_records.header
-	# answer = a_records.answer
+	answers = result.answer
 	# mx_answer = mx_records.answer
 
 	# #puts "The packet is #{packet.data.size} bytes"
@@ -115,9 +116,16 @@ def dns_query(domain)
 
 	# answer.any? {|ans| p ans}
 
-	# #@dns_response = answer.to_s
+  reply = ""
+
+  answers.each do |answer|
+    reply = reply + "\n " + domain + " => " + answer.address.to_s + " (ttl expire - " + (answer.ttl / 60).round.to_s + "m)"
+  end
+
+
+	@dns_response = reply
 	# @dns_response = answer.to_s "\n" + mx_answer.to_s
-	@dns_response = result.to_s
+	#@dns_response = result.to_s
 end
 
 def whois
@@ -125,20 +133,18 @@ def whois
   user_name = params.fetch('user_name')
   response_url = params.fetch('response_url')
  
-
-
-
-  	json_prelim_response(response_url, user_name)
+  	#json_prelim_response(response_url, user_name)
   	
   	if domain =~ /^(.*?\..*?$)/
   		whois_query(domain)
-  		#dns_query(domain)
-  		json_response_test(response_url, @whois_response)
+  		dns_query(domain)
+      
+      #json_response(response_url, @whois_response)
+    print @whois_response + @dns_response
 
   	else
   		"put a real domain name in, fool"
   	end
-
 
 end
 
